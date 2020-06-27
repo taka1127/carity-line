@@ -48,6 +48,10 @@ public class Offer {
 	@Column(length = 80)
 	private String workingHours;
 	
+	@Size(max = 80, message = "休日情報は80文字以内で入力してください")
+	@Column(length = 80)
+	private String holiday;
+	
 	@Size(max = 80, message = "保険やその他特記事項は80文字以内で入力してください")
 	@Column(length = 80)
 	private String insurance;
