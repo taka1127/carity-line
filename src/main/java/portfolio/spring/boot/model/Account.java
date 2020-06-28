@@ -21,7 +21,7 @@ public class Account {
 	private Boolean active;
 	
 	@OneToOne
-	private Company comoany;
+	private Company company;
 	
 	@OneToOne
 	private Person person;

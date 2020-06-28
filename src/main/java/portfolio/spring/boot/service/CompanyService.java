@@ -10,9 +10,9 @@ import portfolio.spring.boot.repository.CompanyRepository;
 public class CompanyService {
 	
 	@Autowired
-	public CompanyRepository companyRepository;
+	private CompanyRepository companyRepository;
 	
-	public Company createDefaultCompany() {
+	public Company createDefaultValueCompany() {
 		Company company = new Company();
 		company.setName("名前を入力してください");
 		company.setUrl("please set url");
