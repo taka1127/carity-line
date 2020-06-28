@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/common}">
+<head>
+<meta charset="UTF-8">
+<title>募集情報 - チャリティーライン</title>
+</head>
+<body>
+<div layout:fragment="contents">
+
+<nav>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="/company">募集管理</a>
+		</li>
+		<li class="breadcrumb-item active">募集情報</li>
+	</ol>
+</nav>
+
+<div class="row mb-3">
+	<div class="col">
+		<a th:href="@{|/company/offer/${offer.id}/edit|}" class="btn btn-primary">
+			編集
+		</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		<table class="table" th:object="${offer}">
+			<tr>
+				<th>状態</th>
+				<td>
+					<span th:text="*{active} ? '募集中' : '募集終了'"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>募集タイトル</th>
+				<td th:text="*{title}"></td>
+			</tr>
+			<tr>
+				<th>詳細</th>
+				<td>
+					<th:block th:each="line : *{contents.split('\n')}">
+						<th:block th:text="${line}" /><br>
+					</th:block>
+				</td>
+			</tr>
+			<tr>
+				<th>都道府県</th>
+				<td th:text="*{prefecture}"></td>
+			</tr>
+			<tr>
+				<th>活動場所</th>
+				<td th:text="*{address}"></td>
+			</tr>
+			<tr>
+				<th>報酬情報</th>
+				<td th:text="*{salary}"></td>
+			</tr>
+			<tr>
+				<th>活動時間</th>
+				<td th:text="*{workingHours}"></td>
+			</tr>
+			<tr>
+				<th>休日</th>
+				<td th:text="*{holiday}"></td>
+			</tr>
+			<tr>
+				<th>保険・その他特記事項</th>
+				<td th:text="*{insurance}"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<h2>応募者</h2>
+
+<div class="row">
+	<div class="col">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>氏名</th>
+					<th>状態</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tr th:each="entry : ${offer.entries}" th:object="${entry}">
+				<td th:text="*{person.name}"></td>
+				<td>
+					<span th:text="*{active} ? '未処理': '処理済'"></span>
+				</td>
+				<td>
+					<a th:href="@{|/company/offer/${offer.id}/entry/*{id}|}">表示</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+</div>
+</body>
+</html>

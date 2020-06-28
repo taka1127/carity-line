@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/common}">
+<head>
+<meta charset="UTF-8">
+<title>応募（エントリー） - チャリティーライン</title>
+</head>
+<body>
+<div layout:fragment="contents">
+
+<div class="row">
+	<div class="col">
+		<table class="table" th:object="${entry.offer}">
+			<tr>
+				<th>団体・企業名</th>
+				<td th:text="*{company.name}"></td>
+			</tr>
+			<tr>
+				<th>募集タイトル</th>
+				<td th:text="*{title}"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="row" th:if="${entry.id} != null">
+	<div class="col">
+		応募済みです。
+	</div>
+</div>
+<form th:if="${entry.id} == null" th:action="@{|/person/offer/*{offer.id}|}" method="post" th:object="${entry}">
+	<input type="hidden" name="offer" th:value="*{offer.id}">
+	<input type="hidden" name="person" th:value="*{person.id}">
+	<input type="hidden" th:field="*{active}">
+	
+	<div class="form-group row">
+		<div class="col-12">
+			<label for="contents">
+				自己PR、質問事項などを記入してください。
+			</label>
+			<textarea rows="5" th:field="*{contents}" class="form-control"></textarea>
+		</div>
+		<div class="col-12">
+			<span th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}" class="form-text text-muted"></span>
+		</div>
+	</div>
+	<div class="form-group row">
+		<div class="col">
+			<input type="submit" value="応募" class="btn btn-primary">
+		</div>
+	</div>
+</form>
+
+</div>
+</body>
+</html>

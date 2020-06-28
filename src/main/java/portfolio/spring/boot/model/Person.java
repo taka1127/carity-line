@@ -48,7 +48,7 @@ public class Person {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthday;
 	
-	@Size(max= 1000, message = "自己紹介や職歴は1000文字以内で入力してください")
+	@Size(max= 1000, message = "自己紹介や経歴は1000文字以内で入力してください")
 	@Column(length = 1000)
 	private String career;
 	

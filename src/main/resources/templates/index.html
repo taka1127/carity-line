@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/common}">
+<head>
+<meta charset="UTF-8">
+<title>チャリティーライン</title>
+</head>
+<body>
+<div layout:fragment="contents">
+
+<h2>募集情報</h2>
+
+<div class="row mb-3">
+	<div class="col">
+		<form action="/search" class="form-inline" method="get">
+			<label class="mr-3">
+				検索ワード
+				<input type="text" name="word" th:value="${param.word}" class="form-control">
+			</label>
+			<label class="mr-3">
+				都道府県
+				<select name="prefecture" class="form-control">
+					<option></option>
+					<option 
+						th:each="prefecture : ${prefectures}" 
+						th:value="${prefecture}" 
+						th:text="${prefecture}" 
+						th:selected="${#strings.equals(param.prefecture, prefecture)}">
+					</option>
+				</select>
+			</label>
+			<input type="submit" value="絞込" class="btn btn-primary mr-1">
+		</form>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>団体・企業</th>
+					<th>募集タイトル</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="offer : ${offers}" th:object="${offer}">
+					<td th:text="*{company.name}"></td>
+					<td th:text="*{title}"></td>
+					<td>
+						<a th:href="@{|/offer/*{id}|}">表示</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+</div>
+</body>
+</html>
