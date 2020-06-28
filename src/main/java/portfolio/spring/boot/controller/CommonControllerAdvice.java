@@ -23,7 +23,7 @@ public class CommonControllerAdvice {
 	private AccountService accountService;
 	
 	
-	//Spring Securityのログイン情報取得の処理
+	//Spring Securityのログイン情報取得の処理(SecurityContextHolderクラスからたどることでUserDetailsオブジェクトが取得できる)
 	@ModelAttribute("account")
 	public Account currentAccount() {
 		SecurityContext context = SecurityContextHolder.getContext();
