@@ -40,7 +40,7 @@ public class Offer {
 	@Column(length = 80)
 	private String address;
 	
-	@Size(max = 80, message = "有償ボランティアなどの報酬情報は80文字以内で入力してください")
+	@Size(max = 80, message = "費用は80文字以内で入力してください")
 	@Column(length = 80)
 	private String salary;
 	

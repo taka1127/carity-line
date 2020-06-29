@@ -15,7 +15,7 @@ public class PersonService {
 	
 	public Person createDefaultValuePerson() {
 		Person person = new Person();
-		person.setName("名前を入力してください");
+		person.setName("名前を設定してください");
 		person.setMail("please@set.email");
 		person.setTel("000-0000-0000");
 		person.setBirthday(LocalDate.of(1980, 1, 1));

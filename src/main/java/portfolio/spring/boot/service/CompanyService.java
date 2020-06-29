@@ -18,7 +18,7 @@ public class CompanyService {
 	
 	public Company createDefaultValueCompany() {
 		Company company = new Company();
-		company.setName("名前を入力してください");
+		company.setName("名前を設定してください");
 		company.setUrl("please set url");
 		company.setMail("please@set.email");
 		company.setTel("000-0000-0000");
