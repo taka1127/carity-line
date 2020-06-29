@@ -14,7 +14,7 @@ public class HomeService {
 	@Autowired
 	private OfferRepository offerRepository;
 	
-	//募集中の求人情報を取得する
+	//募集中(active=true)の求人情報を取得する
 	public List<Offer> getOfferList(){
 		return offerRepository.findByActiveTrue();
 	}
