@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/common}">
+<head>
+<meta charset="UTF-8">
+<title>募集情報作成 - チャリティーライン</title>
+</head>
+<body>
+<div layout:fragment="contents">
+
+<nav>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="/company">募集管理</a>
+		</li>
+		<li class="breadcrumb-item active">募集情報作成</li>
+	</ol>
+</nav>
+
+<form th:action="@{''}" th:object="${offer}" method="post">
+	<input type="hidden" th:field="*{id}">
+	<input type="hidden" th:field="*{company.id}">
+
+	<div class="form-group row">
+		<div class="offset-2 col-10">
+			<div class="form-check">
+				<input type="checkbox" th:field="*{active}" class="form-check-input">
+				<label th:for="${#ids.prev('active')}" class="form-check-label">募集中</label>
+			</div>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="title" class="col-2 col-form-label">募集タイトル</label>
+		<div class="col-5">
+			<input type="text" th:field="*{title}" class="form-control">
+		</div>
+		<div class="col-5">
+			<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="form-text text-muted"></span>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="contents" class="col-2 col-form-label">詳細</label>
+		<div class="col-10">
+			<textarea rows="5" th:field="*{contents}" class="form-control"></textarea>
+		</div>
+		<div class="offset-2 col-10">
+			<span th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}" class="form-text"></span>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label for="prefecture" class="col-2 col-form-label">都道府県</label>
+		<div class="col-2">
+			<select th:field="*{prefecture}" class="form-control">
+				<option th:each="prefecture : ${prefectures}" th:value="${prefecture}" th:text="${prefecture}"></option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="address" class="col-2 col-form-label">活動場所</label>
+		<div class="col-5">
+			<input type="text" th:field="*{address}" class="form-control">
+		</div>
+		<div class="col-5">
+			<span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="form-text text-muted"></span>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="salary" class="col-2 col-form-label">費用</label>
+		<div class="col-5">
+			<input type="text" th:field="*{salary}" class="form-control">
+		</div>
+		<div class="col-5">
+			<span th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}" class="form-text text-muted"></span>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="workingHours" class="col-2 col-form-label">活動時間</label>
+		<div class="col-5">
+			<input type="text" th:field="*{workingHours}" class="form-control">
+		</div>
+		<div class="col-5">
+			<span th:if="${#fields.hasErrors('workingHours')}" th:errors="*{workingHours}" class="form-text text-muted"></span>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="holiday" class="col-2 col-form-label">休日</label>
+		<div class="col-5">
+			<input type="text" th:field="*{holiday}" class="form-control">
+		</div>
+		<div class="col-5">
+			<span th:if="${#fields.hasErrors('holiday')}" th:errors="*{holiday}" class="form-text text-muted"></span>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="insurance" class="col-2 col-form-label">保険・その他特記事項</label>
+		<div class="col-5">
+			<input type="text" th:field="*{insurance}" class="form-control">
+		</div>
+		<div class="col-5">
+			<span th:if="${#fields.hasErrors('insurance')}" th:errors="*{insurance}" class="form-text text-muted"></span>
+		</div>
+	</div>
+
+ 	<div class="form-group row">
+		<div class="offset-2 col-2">
+			<input type="submit" class="btn btn-primary">
+		</div>
+	</div>
+</form>
+
+</div>
+</body>
+</html>

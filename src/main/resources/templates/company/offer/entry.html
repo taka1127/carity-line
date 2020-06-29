@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/common}">
+<head>
+<meta charset="UTF-8">
+<title>応募情報 - チャリティーライン</title>
+</head>
+<body>
+<div layout:fragment="contents">
+
+<nav>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="/company">募集管理</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a th:href="@{|/company/offer/${entry.offer.id}|}">募集情報</a>
+		</li>
+		<li class="breadcrumb-item active">応募情報</li>
+	</ol>
+</nav>
+
+<div class="row">
+	<div class="col">
+		<table class="table" th:object="${entry}">
+			<tr>
+				<th>状態</th>
+				<td>
+					<span th:text="*{active} ? '未処理': '処理済'"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>名前</th>
+				<td th:text="*{person.name}"></td>
+			</tr>
+			<tr>
+				<th>メールアドレス</th>
+				<td th:text="*{person.mail}"></td>
+			</tr>
+			<tr>
+				<th>電話番号</th>
+				<td th:text="*{person.tel}"></td>
+			</tr>
+			<tr>
+				<th>生年月日</th>
+				<td th:text="*{person.birthday}"></td>
+			</tr>
+			<tr>
+				<th>自己紹介・経歴</th>
+				<td>
+					<th:block th:each="line : *{person.career.split('\n')}">
+						<th:block th:text="${line}" /><br>
+					</th:block>
+				</td>
+			</tr>
+			<tr>
+				<th>自己PR・質問事項</th>
+				<td>
+					<th:block th:each="line : *{contents.split('\n')}">
+						<th:block th:text="${line}" /><br>
+					</th:block>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<form th:action="@{|/company/offer/${entry.offer.id}/entry/${entry.id}|}" method="post" th:if="${entry.active}">
+	<div class="form-group row">
+		<div class="col">
+			<input type="submit" value="処理済みにする" class="btn btn-primary">
+		</div>
+	</div>
+</form>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/common}">
+<head>
+<meta charset="UTF-8">
+<title>応募管理 - チャリティーライン</title>
+</head>
+<body>
+<div layout:fragment="contents">
+
+<h2>応募管理</h2>
+
+<div class="row mb-3">
+	<div class="col">
+		<a href="/person/edit" class="btn btn-primary">
+			登録情報編集
+		</a>
+	</div>
+</div>
+
+<div class="row mb-3">
+	<div class="col-6">
+		<table class="table" th:object="${person}">
+			<tr>
+				<th>名前</th>
+				<td th:text="*{name}"></td>
+			</tr>
+			<tr>
+				<th>メールアドレス</th>
+				<td th:text="*{mail}"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>団体・企業</th>
+					<th>募集タイトル</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="entry : ${person.entries}" th:object="${entry}">
+					<td th:text="${entry.offer.company.name}"></td>
+					<td th:text="${entry.offer.title}"></td>
+					<td>
+						<a th:href="@{|/person/entry/*{id}|}">表示</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+</div>
+</body>
+</html>
