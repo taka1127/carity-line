@@ -96,7 +96,8 @@ public class CompanyController {
 		return "company/offer/show";
 	}
 
-	@GetMapping("/offer/{offerId}/entry/{entryId}")
+	
+	@GetMapping("/offer/{offerId}/entry/{entryId}")//EntryオブジェクトからOfferオブジェクトにアクセス可能なため、引数のEntryオブジェクトを「entry」属性に設定する
 	public String showEntry(@PathVariable("entryId") Entry entry, Model model) {
 		checkOfferOwner(entry.getOffer(), model);
 
@@ -104,6 +105,8 @@ public class CompanyController {
 		return "company/offer/entry";
 	}
 
+	
+	//引数のEntryオブジェクトを「処理済み」にする。処理ができたら「/company/{offer.id}/entry/{entry.id}」にリダイレクトする。
 	@PostMapping("/offer/{offerId}/entry/{entryId}")
 	public String processEntry(@PathVariable("entryId") Entry entry) {
 		companyService.processEntry(entry);
@@ -111,8 +114,9 @@ public class CompanyController {
 		return "redirect:" + path;
 	}
 
-	@ResponseStatus(HttpStatus.FORBIDDEN)
+	@ResponseStatus(HttpStatus.FORBIDDEN) //RuntimeExceptionをスーパークラスとすると、メソッドが送出する可能性のある例外をthrowsで宣言しなくてもよくなる
 	private class ForbiddenOfferAccessException extends RuntimeException {
+		 // 例外クラスはシリアライズ可能なため、定義が必要
 		private static final long serialVersionUID = 1L;
 
 		public ForbiddenOfferAccessException(String message) {
@@ -120,7 +124,7 @@ public class CompanyController {
 		}
 	}
 
-	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ResponseStatus(HttpStatus.NOT_FOUND)//引数としてHttpStatusで定義されているステータスコードに対応する定数を指定
 	private class OfferNotFoundException extends RuntimeException {
 		private static final long serialVersionUID = 1L;
 
@@ -133,9 +137,12 @@ public class CompanyController {
 		if (offer == null) {
 			throw new OfferNotFoundException("Not Found");
 		}
-		
+		 // Modelから"company"属性を取り出す
 		Map<String, Object> map = model.asMap();
 		Company company = (Company)map.get("company");
+		
+		// offerを作ったcompanyと現在ログインしているcompanyが一致するか確認
+        // 一致しない場合は例外送出→403ステータスが返される
 		if (!company.equals(offer.getCompany())) {
 			throw new ForbiddenOfferAccessException("Forbidden");
 		}
