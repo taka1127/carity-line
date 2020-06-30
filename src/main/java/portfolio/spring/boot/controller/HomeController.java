@@ -19,6 +19,11 @@ public class HomeController {
 	private HomeService homeService;
 	
 	@GetMapping("/")
+	public String top() {
+		return "top";
+	}
+	
+	@GetMapping("/index")
 	public String home(Model model) {
 		//募集中の求人情報を「offers」属性に設定する
 		List<Offer> offers = homeService.getOfferList();
